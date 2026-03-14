@@ -8,8 +8,8 @@ function formatPrice(price) {
 function TransportBadge({ minutes, name, icon: Icon, color }) {
   if (!minutes) return null;
   return (
-    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${color}`}>
-      <Icon size={11} />
+    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-medium ${color}`}>
+      <Icon size={10} />
       {Math.round(minutes)} min · {name}
     </span>
   );
@@ -17,23 +17,39 @@ function TransportBadge({ minutes, name, icon: Icon, color }) {
 
 export default function PropertyCard({ property, isSelected, onClick }) {
   const priceColor =
-    !property.price ? "bg-gray-100 text-gray-600"
-    : property.price < 200000 ? "bg-green-100 text-green-700"
-    : property.price < 400000 ? "bg-orange-100 text-orange-700"
-    : "bg-red-100 text-red-700";
+    !property.price ? "bg-stone-100 text-stone-500"
+    : property.price < 200000 ? "bg-emerald-50 text-emerald-700"
+    : property.price < 400000 ? "bg-amber-50 text-amber-700"
+    : "bg-red-50 text-red-700";
+
+  const sourceStyles = {
+    pap: "bg-sky-50 text-sky-600",
+    bienici: "bg-emerald-50 text-emerald-600",
+    paruvendu: "bg-violet-50 text-violet-600",
+    notaires: "bg-amber-50 text-amber-700",
+    leboncoin: "bg-orange-50 text-orange-600",
+  };
+
+  const sourceLabels = {
+    pap: "PAP.fr",
+    bienici: "BienIci",
+    paruvendu: "ParuVendu",
+    notaires: "Notaires",
+    leboncoin: "LeBonCoin",
+  };
 
   return (
     <div
       onClick={onClick}
-      className={`p-3 rounded-xl border cursor-pointer transition-all hover:shadow-md ${
+      className={`p-2.5 rounded-xl border cursor-pointer transition-all hover:shadow-md ${
         isSelected
-          ? "border-blue-500 bg-blue-50 shadow-md"
-          : "border-gray-200 bg-white hover:border-blue-300"
+          ? "border-amber-500 bg-amber-50/50 shadow-md ring-1 ring-amber-300/30"
+          : "border-stone-200 bg-white hover:border-amber-300"
       }`}
     >
       {/* Image */}
       {property.images?.length > 0 && (
-        <div className="w-full h-36 rounded-lg overflow-hidden mb-2 bg-gray-100">
+        <div className="w-full h-32 rounded-lg overflow-hidden mb-2 bg-stone-100">
           <img
             src={property.images[0]}
             alt={property.title}
@@ -45,73 +61,73 @@ export default function PropertyCard({ property, isSelected, onClick }) {
 
       {/* Titre + prix */}
       <div className="flex items-start justify-between gap-2 mb-1">
-        <p className="text-sm font-semibold text-gray-800 leading-tight line-clamp-2 flex-1">
+        <p className="text-xs font-semibold text-stone-800 leading-tight line-clamp-2 flex-1">
           {property.title}
         </p>
-        <span className={`shrink-0 text-xs font-bold px-2 py-1 rounded-lg ${priceColor}`}>
+        <span className={`shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded-md ${priceColor}`}>
           {formatPrice(property.price)}
         </span>
       </div>
 
       {/* Ville */}
       {property.city && (
-        <p className="text-xs text-gray-500 flex items-center gap-1 mb-2">
-          <MapPin size={11} />
+        <p className="text-[10px] text-stone-500 flex items-center gap-1 mb-1.5">
+          <MapPin size={10} />
           {property.city}
-          {property.department && <span className="ml-1 text-gray-400">(Dép. {property.department})</span>}
+          {property.department && <span className="ml-1 text-stone-400">(Dép. {property.department})</span>}
         </p>
       )}
 
       {/* Métriques */}
-      <div className="flex flex-wrap gap-2 mb-2">
+      <div className="flex flex-wrap gap-1.5 mb-1.5">
         {property.surface && (
-          <span className="inline-flex items-center gap-1 text-xs text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full">
-            <Home size={11} /> {property.surface} m²
+          <span className="inline-flex items-center gap-1 text-[10px] text-stone-600 bg-stone-50 px-1.5 py-0.5 rounded-full border border-stone-100">
+            <Home size={10} /> {property.surface} m²
           </span>
         )}
         {property.exterior_surface && (
-          <span className="inline-flex items-center gap-1 text-xs text-gray-600 bg-green-50 px-2 py-0.5 rounded-full">
-            <TreePine size={11} /> {property.exterior_surface} m²
+          <span className="inline-flex items-center gap-1 text-[10px] text-emerald-700 bg-emerald-50/60 px-1.5 py-0.5 rounded-full border border-emerald-100">
+            <TreePine size={10} /> {property.exterior_surface} m²
           </span>
         )}
         {property.rooms && (
-          <span className="text-xs text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full">
+          <span className="text-[10px] text-stone-600 bg-stone-50 px-1.5 py-0.5 rounded-full border border-stone-100">
             {property.rooms} pièces
           </span>
         )}
       </div>
 
       {/* Transports */}
-      <div className="flex flex-wrap gap-1 mb-2">
+      <div className="flex flex-wrap gap-1 mb-1.5">
         <TransportBadge
           minutes={property.nearest_train_min}
           name={property.nearest_train_name}
           icon={Train}
-          color="bg-blue-100 text-blue-700"
+          color="bg-sky-50 text-sky-700"
         />
         <TransportBadge
           minutes={property.nearest_bus_min}
           name={property.nearest_bus_name}
           icon={Bus}
-          color="bg-purple-100 text-purple-700"
+          color="bg-violet-50 text-violet-700"
         />
       </div>
 
       {/* Source + lien */}
-      <div className="flex items-center justify-between mt-1">
-        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-          { pap: "bg-blue-50 text-blue-600", bienici: "bg-green-50 text-green-600", paruvendu: "bg-purple-50 text-purple-600", notaires: "bg-amber-50 text-amber-700", leboncoin: "bg-orange-50 text-orange-600" }[property.source] || "bg-gray-50 text-gray-600"
+      <div className="flex items-center justify-between mt-0.5">
+        <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-medium ${
+          sourceStyles[property.source] || "bg-stone-50 text-stone-500"
         }`}>
-          {{ pap: "PAP.fr", bienici: "BienIci", paruvendu: "ParuVendu", notaires: "Notaires", leboncoin: "LeBonCoin" }[property.source] || property.source}
+          {sourceLabels[property.source] || property.source}
         </span>
         <a
           href={property.source_url}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="text-xs text-blue-500 hover:text-blue-700 flex items-center gap-1"
+          className="text-[10px] text-amber-700 hover:text-amber-900 flex items-center gap-1 font-medium"
         >
-          Voir l'annonce <ExternalLink size={11} />
+          Voir l'annonce <ExternalLink size={10} />
         </a>
       </div>
     </div>

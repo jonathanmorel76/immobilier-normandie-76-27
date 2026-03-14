@@ -6,7 +6,7 @@ html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Leaflet overrides */
@@ -26,7 +26,14 @@ html, body, #root {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Scrollbar slim */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #f1f5f9; }
-::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+/* Scrollbar slim – warm tones */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #faf7f2; }
+::-webkit-scrollbar-thumb { background: #c4a882; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #a68a64; }
+
+/* Warm selection highlight */
+::selection {
+  background: #d4b896;
+  color: #3d2b1f;
+}

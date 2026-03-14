@@ -44,36 +44,36 @@ export default function ScrapingPanel({ onScrapingDone }) {
   const isRunning = status?.status === "running" || status?.status === "pending";
 
   return (
-    <div className="border-b border-gray-200 bg-white">
+    <div className="border-b border-stone-200/60 bg-stone-50">
       {/* Toggle */}
       <button
         onClick={() => setIsOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-stone-700 hover:bg-stone-100/60 transition-colors"
       >
         <div className="flex items-center gap-2">
-          <RefreshCw size={15} className={isRunning ? "animate-spin text-blue-600" : "text-gray-500"} />
+          <RefreshCw size={14} className={isRunning ? "animate-spin text-amber-700" : "text-stone-400"} />
           <span>Mettre à jour les annonces</span>
           {isRunning && (
-            <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium animate-pulse">
+            <span className="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-medium animate-pulse">
               En cours…
             </span>
           )}
           {status?.status === "done" && (
-            <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">
+            <span className="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
               ✓ Terminé
             </span>
           )}
         </div>
-        {isOpen ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
+        {isOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
       </button>
 
       {/* Panneau dépliant */}
       {isOpen && (
-        <div className="px-4 pb-4 bg-gray-50 border-t border-gray-100">
+        <div className="px-4 pb-4 bg-stone-50 border-t border-stone-100">
           <div className="mt-3 space-y-3">
             {/* Sélecteur source */}
             <div>
-              <label className="text-xs text-gray-500 block mb-1">Source des annonces</label>
+              <label className="text-[10px] text-stone-400 block mb-1 uppercase tracking-wider font-semibold">Source des annonces</label>
               <div className="flex flex-wrap gap-1.5">
                 {[
                   { value: "all", label: "Toutes" },
@@ -85,10 +85,10 @@ export default function ScrapingPanel({ onScrapingDone }) {
                     key={opt.value}
                     onClick={() => setSource(opt.value)}
                     disabled={isRunning}
-                    className={`text-xs py-1.5 px-2.5 rounded-lg transition-all disabled:opacity-50 ${
+                    className={`text-[11px] py-1.5 px-2.5 rounded-lg transition-all disabled:opacity-50 font-medium ${
                       source === opt.value
-                        ? "bg-blue-600 text-white"
-                        : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-100"
+                        ? "bg-amber-800 text-white shadow-sm"
+                        : "bg-white border border-stone-200 text-stone-500 hover:bg-stone-100"
                     }`}
                   >
                     {opt.label}
@@ -101,16 +101,16 @@ export default function ScrapingPanel({ onScrapingDone }) {
             <button
               onClick={handleStart}
               disabled={isRunning}
-              className="w-full flex items-center justify-center gap-2 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+              className="w-full flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-amber-800 to-amber-700 text-white rounded-lg text-sm font-semibold hover:from-amber-900 hover:to-amber-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
             >
               {isRunning ? (
                 <>
-                  <Loader size={15} className="animate-spin" />
+                  <Loader size={14} className="animate-spin" />
                   Scraping en cours…
                 </>
               ) : (
                 <>
-                  <RefreshCw size={15} />
+                  <RefreshCw size={14} />
                   Lancer le scraping
                 </>
               )}
@@ -119,14 +119,14 @@ export default function ScrapingPanel({ onScrapingDone }) {
             {/* Résultats */}
             {status?.job && (
               <div className={`rounded-lg p-3 text-xs space-y-1 ${
-                status.status === "done" ? "bg-green-50 text-green-800"
+                status.status === "done" ? "bg-emerald-50 text-emerald-800"
                 : status.status === "error" ? "bg-red-50 text-red-800"
-                : "bg-blue-50 text-blue-800"
+                : "bg-amber-50 text-amber-800"
               }`}>
                 {status.status === "done" && (
                   <>
                     <p className="font-semibold flex items-center gap-1">
-                      <CheckCircle size={13} /> Scraping terminé
+                      <CheckCircle size={12} /> Scraping terminé
                     </p>
                     <p>{status.job.properties_found} annonces trouvées</p>
                     <p>{status.job.properties_new} nouvelles annonces ajoutées</p>
@@ -134,13 +134,13 @@ export default function ScrapingPanel({ onScrapingDone }) {
                 )}
                 {status.status === "running" && (
                   <p className="flex items-center gap-1">
-                    <Loader size={13} className="animate-spin" />
+                    <Loader size={12} className="animate-spin" />
                     Récupération des annonces en cours…
                   </p>
                 )}
                 {status.status === "error" && (
                   <p className="flex items-center gap-1">
-                    <AlertCircle size={13} />
+                    <AlertCircle size={12} />
                     Erreur : {status.job.error_message}
                   </p>
                 )}
@@ -153,7 +153,7 @@ export default function ScrapingPanel({ onScrapingDone }) {
               </p>
             )}
 
-            <p className="text-xs text-gray-400 leading-relaxed">
+            <p className="text-[10px] text-stone-400 leading-relaxed">
               Récupère les annonces BienIci, ParuVendu et Notaires de France
               pour la Seine-Maritime (76) et l'Eure (27). Durée estimée : 5-15 minutes.
             </p>

@@ -100,9 +100,9 @@ export default function PropertyCard({ property, isSelected, onClick }) {
       {/* Source + lien */}
       <div className="flex items-center justify-between mt-1">
         <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-          property.source === "leboncoin" ? "bg-orange-50 text-orange-600" : "bg-blue-50 text-blue-600"
+          { pap: "bg-blue-50 text-blue-600", bienici: "bg-green-50 text-green-600", paruvendu: "bg-purple-50 text-purple-600", leboncoin: "bg-orange-50 text-orange-600" }[property.source] || "bg-gray-50 text-gray-600"
         }`}>
-          {property.source === "leboncoin" ? "LeBonCoin" : "PAP.fr"}
+          {{ pap: "PAP.fr", bienici: "BienIci", paruvendu: "ParuVendu", leboncoin: "LeBonCoin" }[property.source] || property.source}
         </span>
         <a
           href={property.source_url}

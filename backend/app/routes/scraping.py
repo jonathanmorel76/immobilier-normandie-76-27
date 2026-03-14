@@ -13,6 +13,9 @@ from app.transport import find_nearest_transport, geocode_city
 from app.scrapers.leboncoin import LeBonCoinScraper
 from app.scrapers.pap import PapScraper
 from app.scrapers.bienici import BienIciScraper
+from app.scrapers.logicimmo import LogicImmoScraper
+from app.scrapers.ouestfrance import OuestFranceScraper
+from app.scrapers.paruvendu import ParuVenduScraper
 from app.scrapers.base import PropertyData
 
 router = APIRouter(prefix="/api/scrape", tags=["scraping"])
@@ -22,7 +25,7 @@ _current_job_id: Optional[int] = None
 
 
 class ScrapeRequest(BaseModel):
-    source: str = "all"  # "all" | "leboncoin" | "pap" | "bienici"
+    source: str = "all"  # "all" | "pap" | "bienici" | "logicimmo" | "ouestfrance" | "paruvendu" | "leboncoin"
 
 
 class ScrapeJobResponse(BaseModel):
@@ -124,6 +127,27 @@ async def _run_scraping_job(job_id: int, source: str):
                 bienici_results = await bienici.scrape()
                 all_properties.extend(bienici_results)
                 print(f"[Scraping] BienIci: {len(bienici_results)} annonces trouvées")
+
+            if source in ("all", "logicimmo"):
+                print("[Scraping] Démarrage Logic-Immo...")
+                logicimmo = LogicImmoScraper()
+                logicimmo_results = await logicimmo.scrape()
+                all_properties.extend(logicimmo_results)
+                print(f"[Scraping] Logic-Immo: {len(logicimmo_results)} annonces trouvées")
+
+            if source in ("all", "ouestfrance"):
+                print("[Scraping] Démarrage Ouestfrance-immo...")
+                ouestfrance = OuestFranceScraper()
+                ouestfrance_results = await ouestfrance.scrape()
+                all_properties.extend(ouestfrance_results)
+                print(f"[Scraping] Ouestfrance-immo: {len(ouestfrance_results)} annonces trouvées")
+
+            if source in ("all", "paruvendu"):
+                print("[Scraping] Démarrage ParuVendu...")
+                paruvendu = ParuVenduScraper()
+                paruvendu_results = await paruvendu.scrape()
+                all_properties.extend(paruvendu_results)
+                print(f"[Scraping] ParuVendu: {len(paruvendu_results)} annonces trouvées")
 
             # Sauvegarder dans la DB
             new_count = 0

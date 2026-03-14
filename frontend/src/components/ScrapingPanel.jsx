@@ -82,6 +82,7 @@ export default function ScrapingPanel({ onScrapingDone }) {
                   { value: "paruvendu", label: "ParuVendu" },
                   { value: "logicimmo", label: "Logic-Immo" },
                   { value: "ouestfrance", label: "OuestFrance" },
+                  { value: "leboncoin", label: "LeBonCoin" },
                 ].map((opt) => (
                   <button
                     key={opt.value}

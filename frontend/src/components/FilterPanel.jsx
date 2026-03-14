@@ -211,17 +211,17 @@ export default function FilterPanel({ filters, updateFilter, resetFilters, total
         {/* Source */}
         <div className="mb-4">
           <span className="text-xs font-semibold text-gray-600 uppercase tracking-wide block mb-2">Source</span>
-          <div className="flex gap-2">
+          <div className="flex gap-1.5 flex-wrap">
             {[
               { value: null, label: "Toutes" },
-              { value: "leboncoin", label: "LeBonCoin" },
               { value: "pap", label: "PAP.fr" },
               { value: "bienici", label: "BienIci" },
+              { value: "paruvendu", label: "ParuVendu" },
             ].map((opt) => (
               <button
                 key={opt.value ?? "all"}
                 onClick={() => updateFilter("source", opt.value)}
-                className={`flex-1 text-xs py-2 rounded-lg font-medium transition-all ${
+                className={`text-xs py-2 px-2.5 rounded-lg font-medium transition-all ${
                   filters.source === opt.value
                     ? "bg-blue-600 text-white shadow"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"

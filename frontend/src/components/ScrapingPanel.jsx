@@ -77,12 +77,9 @@ export default function ScrapingPanel({ onScrapingDone }) {
               <div className="flex flex-wrap gap-1.5">
                 {[
                   { value: "all", label: "Toutes" },
-                  { value: "pap", label: "PAP" },
+                  { value: "pap", label: "PAP.fr" },
                   { value: "bienici", label: "BienIci" },
                   { value: "paruvendu", label: "ParuVendu" },
-                  { value: "logicimmo", label: "Logic-Immo" },
-                  { value: "ouestfrance", label: "OuestFrance" },
-                  { value: "leboncoin", label: "LeBonCoin" },
                 ].map((opt) => (
                   <button
                     key={opt.value}
@@ -157,8 +154,8 @@ export default function ScrapingPanel({ onScrapingDone }) {
             )}
 
             <p className="text-xs text-gray-400 leading-relaxed">
-              Récupère les annonces PAP.fr, BienIci, ParuVendu, Logic-Immo et Ouestfrance-immo
-              pour la Seine-Maritime (76) et l'Eure (27). Durée estimée : 5-20 minutes.
+              Récupère les annonces PAP.fr, BienIci et ParuVendu
+              pour la Seine-Maritime (76) et l'Eure (27). Durée estimée : 5-15 minutes.
             </p>
           </div>
         </div>

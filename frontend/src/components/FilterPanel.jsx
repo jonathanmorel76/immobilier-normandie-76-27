@@ -214,7 +214,6 @@ export default function FilterPanel({ filters, updateFilter, resetFilters, total
           <div className="flex gap-1.5 flex-wrap">
             {[
               { value: null, label: "Toutes" },
-              { value: "pap", label: "PAP.fr" },
               { value: "bienici", label: "BienIci" },
               { value: "paruvendu", label: "ParuVendu" },
             ].map((opt) => (

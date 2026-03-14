@@ -77,7 +77,6 @@ export default function ScrapingPanel({ onScrapingDone }) {
               <div className="flex flex-wrap gap-1.5">
                 {[
                   { value: "all", label: "Toutes" },
-                  { value: "pap", label: "PAP.fr" },
                   { value: "bienici", label: "BienIci" },
                   { value: "paruvendu", label: "ParuVendu" },
                 ].map((opt) => (
@@ -154,7 +153,7 @@ export default function ScrapingPanel({ onScrapingDone }) {
             )}
 
             <p className="text-xs text-gray-400 leading-relaxed">
-              Récupère les annonces PAP.fr, BienIci et ParuVendu
+              Récupère les annonces BienIci et ParuVendu
               pour la Seine-Maritime (76) et l'Eure (27). Durée estimée : 5-15 minutes.
             </p>
           </div>

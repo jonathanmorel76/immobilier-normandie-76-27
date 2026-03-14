@@ -16,6 +16,7 @@ from app.scrapers.bienici import BienIciScraper
 from app.scrapers.logicimmo import LogicImmoScraper
 from app.scrapers.ouestfrance import OuestFranceScraper
 from app.scrapers.paruvendu import ParuVenduScraper
+from app.scrapers.notaires import NotairesScraper
 from app.scrapers.base import PropertyData
 
 router = APIRouter(prefix="/api/scrape", tags=["scraping"])
@@ -148,6 +149,13 @@ async def _run_scraping_job(job_id: int, source: str):
                 paruvendu_results = await paruvendu.scrape()
                 all_properties.extend(paruvendu_results)
                 print(f"[Scraping] ParuVendu: {len(paruvendu_results)} annonces trouvées")
+
+            if source in ("all", "notaires"):
+                print("[Scraping] Démarrage Notaires...")
+                notaires = NotairesScraper()
+                notaires_results = await notaires.scrape()
+                all_properties.extend(notaires_results)
+                print(f"[Scraping] Notaires: {len(notaires_results)} annonces trouvées")
 
             # Sauvegarder dans la DB
             new_count = 0

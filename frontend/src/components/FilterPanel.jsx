@@ -216,6 +216,7 @@ export default function FilterPanel({ filters, updateFilter, resetFilters, total
               { value: null, label: "Toutes" },
               { value: "bienici", label: "BienIci" },
               { value: "paruvendu", label: "ParuVendu" },
+              { value: "notaires", label: "Notaires" },
             ].map((opt) => (
               <button
                 key={opt.value ?? "all"}

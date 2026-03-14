@@ -79,6 +79,7 @@ export default function ScrapingPanel({ onScrapingDone }) {
                   { value: "all", label: "Toutes" },
                   { value: "bienici", label: "BienIci" },
                   { value: "paruvendu", label: "ParuVendu" },
+                  { value: "notaires", label: "Notaires" },
                 ].map((opt) => (
                   <button
                     key={opt.value}
@@ -153,7 +154,7 @@ export default function ScrapingPanel({ onScrapingDone }) {
             )}
 
             <p className="text-xs text-gray-400 leading-relaxed">
-              Récupère les annonces BienIci et ParuVendu
+              Récupère les annonces BienIci, ParuVendu et Notaires de France
               pour la Seine-Maritime (76) et l'Eure (27). Durée estimée : 5-15 minutes.
             </p>
           </div>
